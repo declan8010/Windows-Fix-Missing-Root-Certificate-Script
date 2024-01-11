@@ -1,6 +1,6 @@
 # Windows Fix Missing Root Certificate Script
 
-This script is intended to fix missing or broken Trusted Root Certificates on Windows machines.
+This script is intended to fix missing or broken Trusted Root Certificates on Windows machines. Please note that running this script may trigger antivirus software, especially Windows Defender.
 
 ## Disclaimer
 
@@ -23,6 +23,8 @@ Before running this script, ensure that you have the following:
 ## Contributing
 
 Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/declan1080)
 
 ## License
 
