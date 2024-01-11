@@ -1,6 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
 
+:: Created by Declan1080
+:: GitHub: https://github.com/declan1080
+
 :: Check for administrator privileges
 NET SESSION >nul 2>&1
 if %errorLevel% neq 0 (
@@ -24,7 +27,10 @@ set /p choice=Enter your choice:
 if "%choice%"=="1" (
     :: Show the number of certificates in Trusted Root Certification Authorities
     powershell -command "$certCount = (Get-ChildItem Cert:\LocalMachine\Root).Count; Write-Host 'Number of certificates in Trusted Root Certification Authorities: ' $certCount"
-    pause
+    
+    echo.
+    echo Press any key to return to the menu...
+    pause >nul
     goto menu
 )
 
@@ -39,13 +45,11 @@ if "%choice%"=="2" (
     for /f %%A in ('powershell -command "(Get-ChildItem Cert:\LocalMachine\Root).Count"') do set /a initialCount=%%A
 
     echo Downloading Certificate Package...
-    :: Run certutil.exe to generate SST file
-    certutil.exe -generateSSTFromWU C:\PS\roots.sst
+    :: Run certutil.exe to generate SST file, redirecting the output to nul
+    certutil.exe -generateSSTFromWU C:\PS\roots.sst >nul
 
     :: Wait for 5 seconds
     timeout /t 5 /nobreak >nul
-
-    echo Download complete.
 
     :: Run PowerShell script to import certificates
     powershell -command "$sstStore = (Get-ChildItem -Path C:\ps\roots.sst); $sstStore | Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root"
@@ -58,7 +62,10 @@ if "%choice%"=="2" (
     set /a addedCount=updatedCount - initialCount
     echo Number of certificates added: !addedCount!
     echo New total number of certificates: !updatedCount!
-    pause
+    
+    echo.
+    echo Press any key to return to the menu...
+    pause >nul
     goto menu
 )
 
@@ -67,7 +74,9 @@ if "%choice%"=="3" (
 )
 
 echo Invalid choice. Please try again.
-pause
+echo.
+echo Press any key to return to the menu...
+pause >nul
 goto menu
 
 endlocal
